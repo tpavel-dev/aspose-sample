@@ -1,0 +1,9 @@
+buildscript {
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:${dependency_management_plugin}"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradle_git_properties}"
+        classpath "org.hidetake:gradle-ssh-plugin:${gradle_ssh_plugin}"
+        classpath "io.spring.gradle:propdeps-plugin:${propdeps_plugin}"
+    }
+}

@@ -1,0 +1,77 @@
+allprojects {
+    ext {
+        app_name = project.hasProperty('app_name') ? "${app_name}" : project.name.substring("project-".size())
+        app_jar_name = project.hasProperty('app_jar_name') ? "${app_jar_name}" : "${app_name}-app"
+        app_module_name = project.hasProperty('app_module_name') ? "${app_module_name}" : "${app_name}-app"
+    }
+}
+
+remotes {
+    prod {
+        role 'node'
+        host = '192.168.220.248'
+        user = 'user01'
+        agent = true
+        identity = file('~/.ssh/id_rsa')
+    }
+    preprod {
+        role 'node'
+        host = '192.168.216.147'
+        user = 'user01'
+        agent = true
+        identity = file('~/.ssh/id_rsa')
+    }
+}
+
+task "deploy-to-prod" {
+    doLast {
+        ssh.run {
+            settings {
+                pty = true
+                jschLog = true
+            }
+
+            session(remotes."prod") {
+                def appName = "${app_name}"
+                def appModuleName = "$app_module_name"
+                println "appName  = $appName"
+                println "appModuleName  = $appModuleName "
+                def jarName = "$appModuleName-${release_version}.jar"
+                def deployJarName = "$appModuleName-${deploy_version}.jar"
+                def from = "${project(appModuleName).buildDir}/libs/$jarName"
+                def into = "$appName/$deployJarName"
+                println "from $from"
+                println "into $into"
+                put(from: from, into: into)
+            }
+        }
+    }
+}
+
+task "deploy-to-preprod" {
+    doLast {
+        ssh.run {
+            settings {
+//                knownHosts = allowAnyHosts
+                pty = true
+                jschLog = true
+            }
+
+            session(remotes."preprod") {
+                def appName = "${app_name}"
+                def appModuleName = "$app_module_name"
+                println "appName  = $appName"
+                println "appModuleName  = $appModuleName "
+                def jarName = "$appModuleName-${release_version}.jar"
+                def deployJarName = "$appModuleName-${deploy_version}.jar"
+                def from = "${project(appModuleName).buildDir}/libs/$jarName"
+                def into = "$appName/$deployJarName"
+                println "from $from"
+                println "into $into"
+                put(from: from, into: into)
+//                def result = execute "docker restart $app_name-${deploy_version}"
+//                println result
+            }
+        }
+    }
+}
