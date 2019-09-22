@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':company-service-rest-impl')
+}
+
+apply from: "../boot-jar.gradle"

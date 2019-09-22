@@ -1,0 +1,19 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: "com.gorylenko.gradle-git-properties"
+
+version = release_version
+
+springBoot {
+    buildInfo()
+}
+
+bootJar {
+    enabled = true
+}
+
+gitProperties {
+    
+    gitPropertiesDir = new File("${project.rootDir}/..")
+    dateFormat = "yyyy-MM-dd'T'HH:mmZ"
+    dateFormatTimeZone = "Asia/Almaty"
+}
