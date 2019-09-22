@@ -1,0 +1,7 @@
+includeFlat "company-service-app"
+includeFlat "company-service"
+includeFlat "company-service-rest-api"
+includeFlat "company-service-rest-impl"
+includeFlat "company-model"
+includeFlat "company-exception"
+includeFlat "company-config"

@@ -1,0 +1,90 @@
+allprojects {
+    ext {
+        deploy_version = "1.0.0"
+        release_version = "1.0.0"
+        app_name = "company-service"
+        app_module_name = "company-service-app"
+
+    }
+}
+
+buildscript {
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version")
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradle_git_properties}"
+        classpath "org.hidetake:gradle-ssh-plugin:$gradle_ssh_plugin"
+        classpath "io.spring.gradle:propdeps-plugin:$propdeps_plugin"
+//        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_gradle_plugin"
+    }
+}
+
+apply plugin: "org.hidetake.ssh"
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-idea'
+
+    test { enabled = false }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        compile "org.springframework.boot:spring-boot-starter-actuator"
+        compile "org.springframework.boot:spring-boot-starter-data-jpa"
+        compile "org.springframework.boot:spring-boot-starter-data-rest"
+        compile "org.springframework.cloud:spring-cloud-starter"
+        compile "org.springframework.cloud:spring-cloud-starter-config"
+        compile "org.springframework.security:spring-security-rsa"
+        compile 'org.springframework.data:spring-data-rest-webmvc'
+        optional "org.springframework.boot:spring-boot-configuration-processor"
+
+        compile "com.fasterxml.jackson.core:jackson-databind"
+        compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider"
+        compile "com.google.guava:guava"
+
+        compile "commons-io:commons-io"
+        compile "de.codecentric:spring-boot-admin-starter-client"
+        compile "org.apache.commons:commons-collections4:${commons_collections4}"
+        compile "org.apache.commons:commons-lang3"
+        compile "org.apache.cxf:cxf-spring-boot-starter-jaxrs:${cxf_version}"
+        compile "org.apache.cxf:cxf-spring-boot-starter-jaxws:${cxf_version}"
+//        compile "org.apache.cxf:cxf-rt-features-throttling:${cxf_version}"
+        compile "org.apache.cxf:cxf-rt-features-logging:${cxf_version}"
+//        compile "org.apache.cxf:cxf-rt-features:${cxf_version}"
+//        compile "org.apache.cxf:cxf-rt-management:${cxf_version}"
+//        compile "org.apache.cxf:cxf-rt-features-metrics:${cxf_version}"
+//        compile "org.apache.cxf:cxf-rt-management-web:${cxf_version}"
+//        compile "org.apache.cxf:cxf-rt-features-clustering:${cxf_version}"
+        compile "org.apache.httpcomponents:httpclient"
+        compileOnly "org.projectlombok:lombok:$lombok"
+        testCompileOnly "org.projectlombok:lombok:$lombok"
+        compile "org.apache.httpcomponents:fluent-hc"
+
+//        runtime "org.lazyluke:log4jdbc-remix:${log4jdbc_remix}"
+        testCompile("org.junit.jupiter:junit-jupiter-api")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine")
+//        testRuntime("org.junit.vintage:junit-vintage-engine")
+    }
+
+    compileJava.dependsOn(processResources)
+}
+
+apply from: "../dependency-management-definitions.gradle"
+apply from: "../deploy-tasks.gradle"
