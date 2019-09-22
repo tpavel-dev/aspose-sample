@@ -1,0 +1,3 @@
+dependencies {
+    compile project(':company-service-rest-api')
+}
