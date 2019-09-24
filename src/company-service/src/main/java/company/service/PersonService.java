@@ -16,12 +16,12 @@ public class PersonService {
     private PersonaRepository repository;
 
     public void register(Persona persona) {
-        log.debug("Reg {}", persona);
+        log.info("Reg {}", persona);
         repository.add(persona);
     }
 
     public void unregister(Persona persona) {
-        log.debug("UnReg {}", persona);
+        log.info("UnReg {}", persona);
         repository.remove(persona);
     }
 
