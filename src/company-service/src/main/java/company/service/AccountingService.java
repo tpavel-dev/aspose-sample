@@ -10,7 +10,7 @@ import java.util.Date;
 public class AccountingService {
     private OrgStruct orgStruct;
 
-    public void  ProcessOrder(Order order) {
+    public void processOrder(Order order) {
         throw new UnsupportedOperationException("No implemented");
     }
 
