@@ -49,6 +49,7 @@ dependencies {
     testCompileOnly "org.projectlombok:lombok:$lombok"
     testImplementation "org.projectlombok:lombok:$lombok"
     annotationProcessor "org.projectlombok:lombok:$lombok"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombok"
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'de.codecentric:spring-boot-admin-starter-client'

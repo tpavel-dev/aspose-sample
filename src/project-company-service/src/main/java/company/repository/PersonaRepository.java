@@ -23,7 +23,7 @@ public class PersonaRepository {
 
     public Optional<Persona> findBySocId(String socid) {
         Optional<Persona> person = personsList.stream()
-                .filter(p -> p.getSocialCode().equals(socid))
+                .filter(p -> p.getSocialCode().equalsIgnoreCase(socid))
                 .findFirst();
 
         return person;

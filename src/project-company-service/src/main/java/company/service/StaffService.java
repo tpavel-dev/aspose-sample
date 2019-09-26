@@ -1,13 +1,13 @@
 package company.service;
 
-import company.model.Persona;
+import company.fault.accounting.StaffNotExistException;
 import company.model.Staff;
-import company.repository.PersonaRepository;
 import company.repository.StaffRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +17,7 @@ public class StaffService {
 
     @Autowired
     private StaffRepository repository;
+
 
     public void register(Staff staff) {
         log.info("Reg {}", staff);
@@ -28,10 +29,12 @@ public class StaffService {
         repository.remove(staff);
     }
 
-    public Staff findBySocId(String socialCode) {
-        Optional<Staff> bySocId = repository.findBySocId(socialCode);
-
-        return bySocId.get();
+    public Staff findBySocId(String socialCode) throws StaffNotExistException {
+        Optional<Staff> staff = repository.findBySocId(socialCode);
+        if( staff.isEmpty()) {
+            throw  new StaffNotExistException();
+        }
+        return staff.get();
     }
 
     public List<Staff> getAll() {

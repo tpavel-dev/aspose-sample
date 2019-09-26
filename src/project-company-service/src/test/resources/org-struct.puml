@@ -1,20 +1,20 @@
 @startuml
-:Staff_01:  <<manager>>
-:Staff_11:  <<manager>>
-:Staff_12:  <<sale>>
+:Staff_01: <<manager>>
+:Staff_11: <<manager>>
+:Staff_12: <<sale>>
 :Staff_111: <<emploee>>
 :Staff_112: <<emploee>>
 :Staff_113: <<sale>>
 :Staff_121: <<emploee>>
 :Staff_122: <<sale>>
 :Staff_123: <<sale>>
-Root -> Staff_01    <<manager>>
-Staff_01 --> Staff_11    <<manager>>
-Staff_01 --> Staff_12    <<sale>>
-Staff_11 --> Staff_111  <<emploee>>
-Staff_11 --> Staff_112  <<emploee>>
-Staff_11 --> Staff_113  <<sale>>
-Staff_12 --> Staff_121  <<emploee>>
-Staff_12 --> Staff_122  <<sale>>
-Staff_12 --> Staff_123  <<sale>>
+Root -> Staff_01 <<Manager>>
+Staff_01 --> Staff_11 <<Manager>>
+Staff_01 --> Staff_12 <<Sale>>
+Staff_11 --> Staff_111 <<Employee>>
+Staff_11 --> Staff_112 <<Employee>>
+Staff_11 --> Staff_113 <<Sale>>
+Staff_12 --> Staff_121 <<Employee>>
+Staff_12 --> Staff_122 <<Sale>>
+Staff_12 --> Staff_123 <<Sale>>
 @enduml

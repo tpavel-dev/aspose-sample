@@ -1,5 +1,5 @@
 package company.model;
 
 public enum StaffPosition {
-    Employee, Manager, Sales
+    Employee, Manager, Sale
 }

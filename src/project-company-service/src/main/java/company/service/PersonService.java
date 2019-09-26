@@ -1,5 +1,6 @@
 package company.service;
 
+import company.fault.accounting.PersonaIsNotRegisterException;
 import company.model.Persona;
 import company.repository.PersonaRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,7 +35,11 @@ public class PersonService {
         throw new UnsupportedOperationException("No implemented");
     }
 
-    public Persona finBySocialCode(String spcialCode) {
-        throw new UnsupportedOperationException("No implemented");
+    public Persona finBySocialCode(String spcialCode) throws PersonaIsNotRegisterException {
+        Optional<Persona> person = repository.findBySocId(spcialCode);
+        if (person.isEmpty()) {
+            throw new PersonaIsNotRegisterException();
+        }
+        return person.get();
     }
 }
