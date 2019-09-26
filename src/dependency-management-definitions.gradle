@@ -1,25 +1,9 @@
 subprojects {
     afterEvaluate {
         if (project.plugins.hasPlugin('io.spring.dependency-management')) {
-            if (!project.plugins.hasPlugin('org.springframework.boot')) {
-                dependencyManagement {
-                    imports {
-                        mavenBom "de.codecentric:spring-boot-admin-dependencies:${spring_boot_admin}"
-                        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_dependencies}"
-                        mavenBom "org.springframework.cloud:spring-cloud-task-dependencies:${spring_cloud_task_dependencies}"
-                        mavenBom "com.vaadin:vaadin-bom:${vaadin_bom}"
-                        mavenBom "de.codecentric:spring-boot-admin-dependencies:${spring_boot_admin}"
-                    }
-                }
-
-            }
             dependencyManagement {
                 imports {
-                    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_dependencies}"
                     mavenBom "io.spring.platform:platform-bom:${io_spring_platform_bom}"
-                    mavenBom "com.vaadin:vaadin-bom:${vaadin_bom}"
-                    mavenBom "de.codecentric:spring-boot-admin-dependencies:${spring_boot_admin}"
-		
                 }
             }
         }

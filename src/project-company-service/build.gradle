@@ -1,89 +1,76 @@
-allprojects {
-    ext {
-        deploy_version = "1.0.0"
-        release_version = "1.0.0"
-        app_name = "company-service"
-        app_module_name = "company-service-app"
-
-    }
+plugins {
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+//    id 'propdeps'
+//    id 'propdeps-idea'
 }
 
-buildscript {
 
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        jcenter()
-        maven { url 'http://repo.spring.io/plugins-release' }
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version")
-        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradle_git_properties}"
-        classpath "org.hidetake:gradle-ssh-plugin:$gradle_ssh_plugin"
-        classpath "io.spring.gradle:propdeps-plugin:$propdeps_plugin"
-//        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_gradle_plugin"
-    }
+ext {
+    deploy_version = "1.0.0"
+    release_version = "1.0.0"
+    app_name = "company-service"
+    app_module_name = "company-service-app"
+    set('springBootAdminVersion', "2.1.6")
+}
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url 'http://repo.spring.io/plugins-release' }
+    maven { url "https://plugins.gradle.org/m2/" }
 }
 
-apply plugin: "org.hidetake.ssh"
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'propdeps'
-    apply plugin: 'propdeps-idea'
+test {
+//    enabled = false
+    enabled = true
+    useJUnitPlatform()
+}
 
-//    test { enabled = false }
-//    test { enabled = true }
-    test {
-        useJUnitPlatform()
-    }
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+}
 
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
+springBoot {
+    mainClassName = 'company.app.CompanyServiceApp'
+}
 
-    dependencies {
-        compile "org.springframework.boot:spring-boot-starter-actuator"
-//        compile "org.springframework.boot:spring-boot-starter-data-jpa"
-//        compile "org.springframework.boot:spring-boot-starter-data-rest"
-//        compile "org.springframework.cloud:spring-cloud-starter"
-//        compile "org.springframework.cloud:spring-cloud-starter-config"
-//        compile "org.springframework.security:spring-security-rsa"
-//        compile 'org.springframework.data:spring-data-rest-webmvc'
-        optional "org.springframework.boot:spring-boot-configuration-processor"
 
-        compile "com.fasterxml.jackson.core:jackson-databind"
-        compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider"
-        compile "com.google.guava:guava"
+dependencies {
+    compileOnly "org.projectlombok:lombok:$lombok"
+    testCompileOnly "org.projectlombok:lombok:$lombok"
+    testImplementation "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'de.codecentric:spring-boot-admin-starter-client'
+    compile 'de.codecentric:spring-boot-admin-starter-server'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-        compile "commons-io:commons-io"
-        compile "org.apache.commons:commons-collections4:${commons_collections4}"
-        compile "org.apache.commons:commons-lang3"
-        compile "org.apache.httpcomponents:httpclient"
-        compileOnly "org.projectlombok:lombok:$lombok"
-        testCompileOnly "org.projectlombok:lombok:$lombok"
-        annotationProcessor "org.projectlombok:lombok:$lombok"
-        compile "org.apache.httpcomponents:fluent-hc"
 
-        testImplementation("org.springframework.boot:spring-boot-starter-test") {
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
 //            exclude(module = "junit")
-        }
-        testImplementation("org.junit.jupiter:junit-jupiter-api")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-//        testCompile("org.junit.jupiter:junit-jupiter-api")
-//        testRuntime("org.junit.jupiter:junit-jupiter-engine")
-//        testRuntime("org.junit.vintage:junit-vintage-engine")
     }
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    compileJava.dependsOn(processResources)
 }
 
-apply from: "../dependency-management-definitions.gradle"
-apply from: "../deploy-tasks.gradle"
+compileJava.dependsOn(processResources)
+
+dependencyManagement {
+    imports {
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+    }
+}
+
+
+

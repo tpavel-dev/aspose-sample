@@ -2,15 +2,9 @@ buildscript {
 
     repositories {
         mavenLocal()
-//        mavenCentral()
-//        maven {url "https://plugins.gradle.org/m2/"}
-        maven { url "http://artifactory.kcell.kz/ext-release-local" }
-        maven { url "http://artifactory.kcell.kz/gradle-plugins" }
-        maven { url "http://artifactory.kcell.kz/jboss-nexus" }
-        maven { url "http://artifactory.kcell.kz/jcenter" }
-        maven { url "http://artifactory.kcell.kz/libs-release-local" }
-        maven { url "http://artifactory.kcell.kz/maven-central" }
-        maven { url "http://artifactory.kcell.kz/repo.spring.io" }
+        mavenCentral()
+        jcenter()
+        maven {url "https://plugins.gradle.org/m2/"}
     }
 
     dependencies {

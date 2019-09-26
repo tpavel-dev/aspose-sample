@@ -10,13 +10,6 @@
         <option name="gradleJvm" value="11" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../company-config" />
-            <option value="$PROJECT_DIR$/../company-exception" />
-            <option value="$PROJECT_DIR$/../company-model" />
-            <option value="$PROJECT_DIR$/../company-service" />
-            <option value="$PROJECT_DIR$/../company-service-app" />
-            <option value="$PROJECT_DIR$/../company-service-rest-api" />
-            <option value="$PROJECT_DIR$/../company-service-rest-impl" />
             <option value="$PROJECT_DIR$" />
           </set>
         </option>
