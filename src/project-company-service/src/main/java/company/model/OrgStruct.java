@@ -1,7 +1,15 @@
 package company.model;
 
-import java.util.List;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
+@Data
+@Component
 public class OrgStruct {
-    List<Staff> roots;
+    OrgStructRelation roots;
+    List<OrgStructItem> relationsList;
+    Map<Staff, OrgStructItem> relationsMap;
 }

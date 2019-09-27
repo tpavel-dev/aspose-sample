@@ -1,4 +1,4 @@
-package company.model;
+package company.model.orders;
 
 public enum OrderType {
     HIRING,

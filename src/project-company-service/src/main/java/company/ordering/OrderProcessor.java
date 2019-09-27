@@ -1,8 +1,10 @@
 package company.ordering;
 
-import company.fault.accounting.AlreadyStaff;
-import company.fault.accounting.StaffNotExistException;
+import company.fault.accounting.CaseException;
+import company.model.orders.Order;
 
-public interface  OrderProcessor<O> {
-    void process(O order) throws AlreadyStaff, StaffNotExistException;
+public interface  OrderProcessor<ORDER extends Order> {
+    void process(ORDER order) throws CaseException;
+
+    Class<? extends ORDER> availableOrderClass();
 }

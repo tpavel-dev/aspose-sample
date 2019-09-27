@@ -1,5 +1,8 @@
-package company.model;
+package company.model.orders;
 
+import company.model.Persona;
+import company.model.Staff;
+import company.model.StaffPosition;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

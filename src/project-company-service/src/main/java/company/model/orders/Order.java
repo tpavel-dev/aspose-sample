@@ -1,6 +1,5 @@
-package company.model;
+package company.model.orders;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;

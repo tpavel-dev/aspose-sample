@@ -1,11 +1,14 @@
 package company.service;
 
+import company.fault.accounting.CaseException;
 import company.fault.accounting.PersonaIsNotRegisterException;
 import company.fault.accounting.StaffNotExistException;
-import company.model.HiringOrder;
-import company.model.Order;
+import company.model.OrgStruct;
+import company.model.orders.HiringOrder;
 import company.model.Persona;
 import company.model.StaffPosition;
+import company.ordering.DismissalOrderProcessor;
+import company.ordering.HiringOrderProcessor;
 import company.repository.PersonaRepository;
 import company.repository.StaffRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +22,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ExtendWith(SpringExtension.class)
@@ -30,7 +31,10 @@ import java.util.stream.Stream;
         StaffService.class,
         StaffPosition.class,
         StaffRepository.class,
-        AccountingService.class
+        AccountingService.class,
+        HiringOrderProcessor.class,
+        DismissalOrderProcessor.class,
+        OrgStruct.class,
 })
 @Slf4j
 public class OrgStructTest {
@@ -45,17 +49,17 @@ public class OrgStructTest {
     private StaffService staffService;
 
     @Autowired
-    private AccountingService accountingService;
+//    private AccountingService accountingService;
 
 
-    void buildOrgStruct() throws PersonaIsNotRegisterException, StaffNotExistException {
-        HiringOrder hiring = HiringOrder.builder()
-                .persona(personService.finBySocialCode("11"))
-                .staff(staffService.findBySocId("12"))
-                .position(StaffPosition.Employee).salary(100)
-                .build();
-        accountingService.processOrder(hiring);
-    }
+//    void buildOrgStruct() throws CaseException {
+//        HiringOrder hiring = HiringOrder.builder()
+//                .persona(personService.finBySocialCode("11"))
+//                .staff(staffService.findBySocId("12"))
+//                .position(StaffPosition.Employee).salary(100)
+//                .build();
+//        accountingService.processOrder(hiring);
+//    }
 
     @Test
     void parsePuml() throws IOException, URISyntaxException {
