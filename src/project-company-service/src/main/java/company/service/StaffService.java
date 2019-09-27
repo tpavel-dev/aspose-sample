@@ -1,5 +1,6 @@
 package company.service;
 
+import company.fault.accounting.AlreadyStaff;
 import company.fault.accounting.StaffNotExistException;
 import company.model.Staff;
 import company.repository.StaffRepository;
@@ -19,8 +20,12 @@ public class StaffService {
     private StaffRepository repository;
 
 
-    public void register(Staff staff) {
+    public void register(Staff staff) throws AlreadyStaff {
         log.info("Reg {}", staff);
+        Optional<Staff> bySocId = repository.findBySocId(staff.getPersona().getSocialCode());
+        if(bySocId.isPresent()) {
+            throw new AlreadyStaff();
+        }
         repository.add(staff);
     }
 

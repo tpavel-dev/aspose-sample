@@ -1,5 +1,7 @@
 package company.service;
 
+import company.fault.accounting.AlreadyStaff;
+import company.fault.accounting.PersonaAlreadyRegister;
 import company.fault.accounting.PersonaIsNotRegisterException;
 import company.model.Persona;
 import company.repository.PersonaRepository;
@@ -17,8 +19,12 @@ public class PersonService {
     @Autowired
     private PersonaRepository repository;
 
-    public void register(Persona persona) {
+    public void register(Persona persona) throws PersonaAlreadyRegister {
         log.info("Reg {}", persona);
+        Optional<Persona> bySocId = repository.findBySocId(persona.getSocialCode());
+        if (bySocId.isPresent()) {
+            throw new PersonaAlreadyRegister();
+        }
         repository.add(persona);
     }
 

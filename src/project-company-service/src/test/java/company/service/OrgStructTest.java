@@ -35,6 +35,7 @@ import java.util.stream.Stream;
         HiringOrderProcessor.class,
         DismissalOrderProcessor.class,
         OrgStruct.class,
+        OrgStructService.class,
 })
 @Slf4j
 public class OrgStructTest {
