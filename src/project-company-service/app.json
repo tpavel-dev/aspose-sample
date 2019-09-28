@@ -1,0 +1,6 @@
+{
+  "name": "Sample Spring App: Company Service",
+  "description": ".",
+  "image": "heroku/gradle",
+  "addons": [ "heroku-postgresql" ]
+}

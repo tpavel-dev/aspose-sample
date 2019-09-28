@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class AccountingService {
+
+    @Autowired
     private OrgStruct orgStruct;
 
     @Autowired

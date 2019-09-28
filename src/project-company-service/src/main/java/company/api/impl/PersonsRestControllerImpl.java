@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/persons")
 public class PersonsRestControllerImpl implements PersonsRestController {
     @Autowired
     private PersonService personService;

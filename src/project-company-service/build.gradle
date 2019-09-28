@@ -52,8 +52,10 @@ dependencies {
     testAnnotationProcessor "org.projectlombok:lombok:$lombok"
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'de.codecentric:spring-boot-admin-starter-client'
-    compile 'de.codecentric:spring-boot-admin-starter-server'
+//    compile 'de.codecentric:spring-boot-admin-starter-client'
+//    compile 'de.codecentric:spring-boot-admin-starter-server'
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 

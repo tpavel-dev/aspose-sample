@@ -1,6 +1,7 @@
 package company.service;
 
 import company.model.*;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +9,12 @@ import org.springframework.stereotype.Service;
 public class OrgStructService {
 
     @Autowired
+    @Getter
     private OrgStruct orgStruct;
 
-    public void registrationReletions(Staff master, Staff slave, OrgStructRelation relation) {
+    public void registrationReletions(
+            Staff master, Staff slave, OrgStructRelation relation
+    ) {
         // todo check relation
         OrgStructItem item = OrgStructItem.builder()
                 .master(master)
