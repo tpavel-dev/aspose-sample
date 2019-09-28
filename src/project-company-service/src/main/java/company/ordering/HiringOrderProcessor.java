@@ -5,6 +5,9 @@ import company.fault.accounting.StaffNotExistException;
 import company.model.OrgStructRelation;
 import company.model.orders.HiringOrder;
 import company.model.Staff;
+import company.model.salary.EmploeeSalaryModel;
+import company.model.salary.ManagerSalaryModel;
+import company.model.salary.SaleSalaryModel;
 import company.service.OrgStructService;
 import company.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +20,14 @@ public class HiringOrderProcessor implements OrderProcessor<HiringOrder> {
 
     @Autowired
     private StaffService staffService;
-
     @Autowired
     private OrgStructService orgStructService;
+    @Autowired
+    private SaleSalaryModel saleSalaryModel;
+    @Autowired
+    private ManagerSalaryModel managerSalaryModel;
+    @Autowired
+    private EmploeeSalaryModel emploeeSalaryModel;
 
     @Override
     public void process(HiringOrder order) throws AlreadyStaff, StaffNotExistException {
@@ -28,17 +36,25 @@ public class HiringOrderProcessor implements OrderProcessor<HiringOrder> {
             if (bySocId != null) {
                 throw new AlreadyStaff();
             }
-        } catch (StaffNotExistException ignore){}
+        } catch (StaffNotExistException ignore) {
+        }
 
         Staff newStaff = Staff.builder()
                 .persona(order.getPersona())
                 .baseSalary(order.getSalary())
                 .position(order.getPosition())
+                .hiringDate(order.getDate())
                 .build();
 
         var master = order.getStaff();
 
         newStaff.getOrders().add(order);
+
+        switch (order.getPosition()) {
+            case Sale: newStaff.setPersonalSalaryModel(saleSalaryModel);
+            case Manager: newStaff.setPersonalSalaryModel(managerSalaryModel);
+            case Employee: newStaff.setPersonalSalaryModel(emploeeSalaryModel);
+        }
 
         staffService.register(newStaff);
 

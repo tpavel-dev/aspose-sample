@@ -1,5 +1,6 @@
 package company.service;
 
+import company.configuration.ModelConfiguration;
 import company.fault.accounting.CaseException;
 import company.fault.accounting.PersonaIsNotRegisterException;
 import company.fault.accounting.StaffNotExistException;
@@ -38,6 +39,7 @@ import java.util.stream.Stream;
         OrgStruct.class,
         OrgStructService.class,
         SampleDataLoader.class,
+        ModelConfiguration.class,
 })
 @Slf4j
 public class OrgStructTest {

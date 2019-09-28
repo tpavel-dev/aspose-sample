@@ -45,8 +45,8 @@ public class AccountingService {
 
     public Integer calculateSalary(Staff staff, Date from, Date to) throws AccountingException {
 //        staff.setBaseSalary(100);
-//        return null;
-        return staff.getPersonalSalaryModel().calculate(this.orgStruct, staff, from, to);
+        return null;
+//        return staff.getPersonalSalaryModel().calculate(this.orgStruct, staff, from, to);
 //        return staff.getPersonalSalaryModel().calculate(this.orgStruct, staff, from, to);
 //        throw new UnsupportedOperationException("No implemented");
     }

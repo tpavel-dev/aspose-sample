@@ -5,7 +5,9 @@ import company.model.salary.SalaryModel;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -13,6 +15,7 @@ import java.util.List;
 public class Staff {
     private Persona persona;
     private Integer baseSalary;
+    private LocalDate hiringDate;
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
     private SalaryModel personalSalaryModel;

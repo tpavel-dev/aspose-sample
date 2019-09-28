@@ -1,10 +1,14 @@
 package company.model.salary;
 
+import company.model.CurrentState;
 import company.model.OrgStruct;
 import company.model.Staff;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface SalaryModel {
-    Integer calculate(OrgStruct orgStruct, Staff staff, Date from, Date to);
+    double calculate(
+            Staff staff,
+            LocalDate effectDate
+    );
 }

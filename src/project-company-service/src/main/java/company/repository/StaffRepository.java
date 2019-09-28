@@ -2,6 +2,7 @@ package company.repository;
 
 import company.model.Persona;
 import company.model.Staff;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -13,18 +14,11 @@ import java.util.Optional;
 public class StaffRepository {
     List<Staff> staffList = new ArrayList<>();
 
+    @Autowired
     private Staff root;
 
     @PostConstruct
     public void init() {
-        root = Staff.builder()
-                .persona(
-                        Persona.builder()
-                                .name("root")
-                                .socialCode("root")
-                                .build()
-                )
-                .build();
         staffList.add(root);
     }
 
