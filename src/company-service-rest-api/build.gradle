@@ -1,4 +1,0 @@
-dependencies {
-    compile project(':company-fault')
-    compile project(':company-model')
-}
