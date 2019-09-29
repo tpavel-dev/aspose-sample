@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 @Service
@@ -75,8 +76,12 @@ public class SampleDataLoader {
             if (tokens.length < 4) return;
             var headId = startToken;
             var personaId = tokens[2];
-            var addInfo = tokens[3];
-            var position = addInfo.substring(2, addInfo.length() - 2);
+            var addInfoToken = tokens[3];
+            addInfoToken = addInfoToken.substring(2, addInfoToken.length() - 2);
+            var addInfo = addInfoToken.split(",");
+            var position = addInfo[0];
+            var hiringDate = LocalDate.parse(addInfo[1]);
+            var salary = Integer.parseInt(addInfo[2]);
 
             var persona = personService.finBySocialCode(personaId);
             var head = staffService.findBySocId(headId);
@@ -84,6 +89,8 @@ public class SampleDataLoader {
             var hiringOrder = HiringOrder
                     .builder()
                     .persona(persona)
+                    .salary(salary)
+                    .date(hiringDate)
                     .staff(head)
                     .position(StaffPosition.valueOf(position))
                     .build();

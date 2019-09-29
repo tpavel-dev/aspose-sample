@@ -8,13 +8,13 @@
 :Staff_121: <<emploee>>
 :Staff_122: <<sale>>
 :Staff_123: <<sale>>
-Root -> Staff_01 <<Manager>>
-Staff_01 --> Staff_11 <<Manager>>
-Staff_01 --> Staff_12 <<Sale>>
-Staff_11 --> Staff_111 <<Employee>>
-Staff_11 --> Staff_112 <<Employee>>
-Staff_11 --> Staff_113 <<Sale>>
-Staff_12 --> Staff_121 <<Employee>>
-Staff_12 --> Staff_122 <<Sale>>
-Staff_12 --> Staff_123 <<Sale>>
+Root -> Staff_01 <<Manager,2015-01-02,1000>>
+Staff_01 --> Staff_11 <<Manager,2015-02-02,800>>
+Staff_01 --> Staff_12 <<Sale,2015-03-02,800>>
+Staff_11 --> Staff_111 <<Employee,2015-04-02,600>>
+Staff_11 --> Staff_112 <<Employee,2015-05-02,600>>
+Staff_11 --> Staff_113 <<Sale,2015-06-02,700>>
+Staff_12 --> Staff_121 <<Employee,2015-07-02,600>>
+Staff_12 --> Staff_122 <<Sale,2015-08-02,700>>
+Staff_12 --> Staff_123 <<Sale,2015-09-02,700>>
 @enduml

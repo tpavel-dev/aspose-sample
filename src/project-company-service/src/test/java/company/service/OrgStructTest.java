@@ -8,6 +8,9 @@ import company.model.OrgStruct;
 import company.model.orders.HiringOrder;
 import company.model.Persona;
 import company.model.StaffPosition;
+import company.model.salary.EmploeeSalaryModel;
+import company.model.salary.ManagerSalaryModel;
+import company.model.salary.SaleSalaryModel;
 import company.ordering.DismissalOrderProcessor;
 import company.ordering.HiringOrderProcessor;
 import company.repository.PersonaRepository;
@@ -40,6 +43,9 @@ import java.util.stream.Stream;
         OrgStructService.class,
         SampleDataLoader.class,
         ModelConfiguration.class,
+        SaleSalaryModel.class,
+        ManagerSalaryModel.class,
+        EmploeeSalaryModel.class,
 })
 @Slf4j
 public class OrgStructTest {
