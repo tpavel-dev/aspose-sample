@@ -5,6 +5,7 @@ import company.fault.accounting.CaseException;
 import company.fault.accounting.PersonaIsNotRegisterException;
 import company.fault.accounting.StaffNotExistException;
 import company.model.OrgStruct;
+import company.model.PaymentStatementReport;
 import company.model.orders.HiringOrder;
 import company.model.Persona;
 import company.model.StaffPosition;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 @ExtendWith(SpringExtension.class)
@@ -53,8 +55,28 @@ public class OrgStructTest {
     @Autowired
     private SampleDataLoader loader;
 
+    @Autowired
+    private AccountingService accountingService;
+
     @Test
     void parsePuml() throws Exception {
         loader.LoadSampleData();
+    }
+
+    @Test
+    void paymentStatementReportTest() throws Exception {
+        loader.LoadSampleData();
+        PaymentStatementReport paymentStatementReport
+                = accountingService.paymentStatementReport(LocalDate.parse("2019-06-15"));
+
+        paymentStatementReport.getItems().stream().forEach(
+                s -> {
+                    log.info(
+                            "Staff: {}; Salary {}",
+                            s.getStaff().getPersona().getName(),
+                            s.getSalary()
+                    );
+                }
+        );
     }
 }

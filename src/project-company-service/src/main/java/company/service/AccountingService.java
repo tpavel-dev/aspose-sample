@@ -2,6 +2,8 @@ package company.service;
 
 import company.fault.accounting.AccountingException;
 import company.fault.accounting.CaseException;
+import company.model.PaymentStatement;
+import company.model.PaymentStatementReport;
 import company.model.orders.Order;
 import company.model.OrgStruct;
 import company.model.Staff;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,6 +23,9 @@ public class AccountingService {
 
     @Autowired
     private OrgStruct orgStruct;
+
+    @Autowired
+    private StaffService staffService;
 
     @Autowired
     private Set<OrderProcessor> orderProcessorsList;
@@ -35,7 +41,7 @@ public class AccountingService {
     public void processOrder(Order order) throws CaseException {
         log.info("Process order {}", order);
         OrderProcessor orderProcessor = orderProcessorMap.get(order.getClass());
-        if(orderProcessor == null) {
+        if (orderProcessor == null) {
             throw new IllegalStateException("Not found order processor for {}"
                     + order.getClass().getSimpleName());
         }
@@ -43,11 +49,17 @@ public class AccountingService {
         orderProcessor.process(order);
     }
 
-    public Integer calculateSalary(Staff staff, Date from, Date to) throws AccountingException {
-//        staff.setBaseSalary(100);
-        return null;
-//        return staff.getPersonalSalaryModel().calculate(this.orgStruct, staff, from, to);
-//        return staff.getPersonalSalaryModel().calculate(this.orgStruct, staff, from, to);
-//        throw new UnsupportedOperationException("No implemented");
+    public PaymentStatementReport paymentStatementReport(LocalDate affectdata) {
+        return new PaymentStatementReport(
+                staffService.getAll().stream()
+                        .filter(s -> s.getPersonalSalaryModel() != null)
+                        .map(s -> {
+                            var salary = s.getPersonalSalaryModel().calculate(s, affectdata);
+                            return PaymentStatement.builder()
+                                    .staff(s)
+                                    .salary(salary)
+                                    .build();
+                        }).collect(Collectors.toList())
+        );
     }
 }
